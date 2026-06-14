@@ -2,6 +2,14 @@
 
 A Claude Code skill that makes AI agents verify before they reason. Structured thinking backed by real evidence — not just longer answers.
 
+## About
+
+Most AI reasoning skills tell agents to "think harder." The result is longer responses, not better ones. The agent spends more tokens reasoning about what code *probably* does instead of just reading it.
+
+deepthink takes a different approach: **verify first, reason second.** Before the agent forms an opinion, it must gather evidence — grep the codebase, read the actual files, check git history, run the tests. Assumptions are tracked separately from verified facts, so the final answer distinguishes what was checked from what was guessed.
+
+The skill adapts to problem complexity. Simple tasks get no overhead. Complex tasks get a prescribed sequence of thinking modes — investigation, decomposition, exploration, evaluation, and commitment — selected automatically based on what kind of problem you're solving. No manual mode selection, no one-size-fits-all process.
+
 ## Install
 
 ```
@@ -12,8 +20,34 @@ npx skills add vipinxsec/deepthink
 
 Prefix your prompt with `/deepthink`:
 
+**Debugging**
 ```
-/deepthink Why is this auth middleware bypassed on the /api/health endpoint?
+/deepthink Why do uploaded files silently fail when they exceed 10MB?
+```
+
+**Architecture & Design**
+```
+/deepthink Should we use WebSockets or SSE for our real-time notifications system?
+```
+
+**Refactoring**
+```
+/deepthink This payment processing module has grown to 2000 lines — how should we break it apart?
+```
+
+**Research**
+```
+/deepthink What are the security implications of storing JWTs in localStorage vs httpOnly cookies for our auth flow?
+```
+
+**Decision Making**
+```
+/deepthink We need to choose between PostgreSQL and DynamoDB for our multi-tenant SaaS. Our team has more SQL experience but we expect unpredictable traffic spikes.
+```
+
+**Implementation**
+```
+/deepthink Add rate limiting to our public API endpoints — we're seeing abuse on /api/search.
 ```
 
 The skill also activates automatically for complex reasoning, design decisions, debugging, and evaluation tasks.
