@@ -31,7 +31,7 @@ Select the prescribed mode sequence for the task type:
 
 | Type | Sequence |
 |---|---|
-| bug | investigate → decompose → commit |
+| bug | investigate → diagnose → commit |
 | design | decompose → explore → evaluate → commit |
 | refactor | investigate → decompose → evaluate → commit |
 | research | investigate → explore → evaluate |

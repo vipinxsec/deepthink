@@ -56,7 +56,7 @@ Every task gets classified and assigned the right thinking sequence automaticall
 
 | Task | Mode Sequence |
 |---|---|
-| Bug | investigate → decompose → commit |
+| Bug | investigate → diagnose → commit |
 | Design | decompose → explore → evaluate → commit |
 | Refactor | investigate → decompose → evaluate → commit |
 | Research | investigate → explore → evaluate |
@@ -68,6 +68,7 @@ Every task gets classified and assigned the right thinking sequence automaticall
 | Mode | What it does |
 |---|---|
 | **investigate** | Active fact-finding with tools. Grep the codebase, read files, check git history, run tests. Replace assumptions with evidence. |
+| **diagnose** | Form competing hypotheses about the cause. Find the cheapest test that distinguishes them — and run it. Eliminate until one remains. |
 | **decompose** | Break the problem into parts. Expose hidden assumptions. Identify the minimal working set. |
 | **explore** | Generate 3+ structurally different approaches with explicit tradeoffs. Not surface variants — architecturally distinct options. |
 | **evaluate** | Weighted criteria comparison. Find the decisive criterion. Stress-test the winner against its worst failure mode. |
