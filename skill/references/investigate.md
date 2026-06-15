@@ -8,72 +8,69 @@ This is not a thinking mode. It is a doing mode. Every action below is something
 
 ## Actions
 
-### Read before modifying
+### Read before assuming
 
-Before changing any file, read it completely. Read the surrounding code too — context prevents breaking adjacent functionality. Don't assume you know what a file contains, even if you've seen similar files before.
+Before forming an opinion about anything — a file, a document, a claim, a system — read the actual source. Don't assume you know what it contains, even if you've seen similar things before.
 
-### Grep before guessing
+### Search before guessing
 
-If your plan depends on a function, pattern, type, or behavior existing, verify it:
+If your plan depends on something existing, verify it:
 
-- `grep -rn "functionName" --include="*.ts" --include="*.tsx"`
-- `grep -rn "pattern" src/`
-- `find . -name "*.config.*" -type f`
-- `find . -path "*/auth/*" -type f`
+**For code tasks:**
+- `grep -rn "pattern" --include="*.ts"` to find functions, patterns, or usage
+- `find . -name "*.config.*" -type f` to locate configuration
+- `git log` / `git blame` to understand history and intent
 
-If grep returns nothing, your plan has a false assumption. Adjust before proceeding.
+**For research or non-code tasks:**
+- Search the web for current data, sources, or prior art
+- Check official documentation, specs, or authoritative references
+- Look for counterexamples to your initial assumption
 
-### Check history when it matters
+If your search returns nothing, your plan has a false assumption. Adjust before proceeding.
 
-For bugs: when did this break? For design: why was it built this way?
+### Check history and context
 
-- `git log --oneline -10 -- path/to/file`
-- `git log --all --oneline --grep="keyword"`
-- `git blame path/to/file`
-- `git diff HEAD~5 -- path/to/file`
+Understanding WHY something is the way it is prevents "fixing" what's intentional.
 
-Commit messages and recent diffs often explain WHY something is the way it is. This prevents "fixing" intentional behavior.
+**For code:** `git log`, `git blame`, commit messages, PR descriptions
+**For everything else:** prior decisions, meeting notes, changelogs, version history, related discussions
 
-### Run before claiming
+### Verify before claiming
 
-If you say "this test passes" — run it. If you say "this builds" — build it. If you say "this handles edge case X" — trace the exact code path with concrete values.
+If you say something is true — confirm it. Run the test, check the source, read the document, verify the number. Don't state facts you haven't checked.
 
-### Check types and interfaces
+### Trace the flow
 
-If using a library, API, or internal module: read its type definitions, interface declarations, or documentation. Don't rely on memory or pattern matching from similar-looking code.
-
-### Trace the data flow
-
-For bugs and integration work: trace the actual flow from input to output. Check each transformation step. Don't trust your mental model — verify each hop.
+For any system (code, process, argument, workflow): trace the actual path from input to output. Check each step. Don't trust your mental model — verify each transition.
 
 ## What to look for
 
-- Dependencies between components you'll modify
-- Error handling patterns used in surrounding code (match them)
-- Test coverage for the area you're touching
+- Dependencies between things you'll change
+- Patterns and conventions already established (match them)
+- Existing work that already does what you're about to propose
 - Recent changes that might interact with your work
-- Configuration or environment variables that affect behavior
-- Existing utilities or helpers that already do what you're about to build
+- Constraints or context that affect behavior
+- Contradictions between different sources (docs vs reality, stated policy vs actual practice)
+
+Contradictions are high-value signals — they often point to the real problem or the real question.
 
 ## Record what you find
 
 After investigating:
 
-- **Found**: Facts confirmed with tools (with source: file, line, command)
+- **Found**: Facts confirmed with tools or sources (with citation)
 - **Missing**: Information you need but couldn't find
-- **Contradictions**: Where code, docs, tests, or types disagree with each other
-
-Contradictions are high-value signals — they often point to the actual bug or the real design question.
+- **Contradictions**: Where different sources disagree with each other
 
 ## Failure checks
 
-- Planning changes without reading the target file first
-- Assuming function signatures, return types, or behavior from memory
+- Forming opinions without reading the source material first
+- Assuming things from memory instead of checking
 - Checking easy things while leaving the critical assumption unchecked
-- Reading one file when the behavior spans multiple files
-- Trusting variable or function names as documentation of behavior
-- Skipping the test files (they document intended behavior and edge cases)
+- Reading one source when the picture spans multiple sources
+- Trusting labels, titles, or names as documentation of actual behavior
+- Skipping the things that document intended behavior (tests, specs, contracts, policies)
 
 ## Done when
 
-Your understanding is grounded in what you read, ran, and checked — not what you assumed or predicted. You know what exists, where it is, and how it currently works.
+Your understanding is grounded in what you read, checked, and verified — not what you assumed or predicted. You know what exists, where it is, and how it currently works.

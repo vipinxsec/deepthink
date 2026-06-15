@@ -26,16 +26,21 @@ Produce 3+ plausible causes that explain the symptoms. Each must name a specific
 Bad: "it might be a configuration issue"
 Good: "the nginx client_max_body_size is set to 1M, rejecting uploads before they reach the app server"
 
+Bad: "the strategy isn't working"
+Good: "the pricing model assumes elastic demand, but our customer segment has fixed budgets — lowering price doesn't increase volume"
+
 Useful hypothesis families:
 
-- **State mismatch** — stale cache, out-of-sync replica, migration not run
-- **Boundary/limit** — size limit, timeout, off-by-one, integer overflow
-- **Environment** — version mismatch, missing env var, different config in prod vs dev
-- **Timing** — race condition, ordering dependency, async callback firing late
-- **Hidden dependency** — implicit coupling, transitive import, shared global state
-- **Input assumption** — unexpected encoding, null where non-null expected, type coercion
-- **Interaction effect** — two individually correct components producing incorrect behavior together
-- **Observation error** — logging the wrong variable, reading stale output, testing the wrong endpoint
+- **State mismatch** — stale data, out-of-sync systems, missed update
+- **Boundary/limit** — size limit, threshold, capacity, off-by-one
+- **Environment** — version mismatch, different conditions in test vs production
+- **Timing** — race condition, ordering dependency, delayed feedback
+- **Hidden dependency** — implicit coupling, transitive relationship, shared state
+- **Input assumption** — unexpected format, missing data, wrong type, edge case
+- **Interaction effect** — two individually correct parts producing incorrect behavior together
+- **Observation error** — measuring the wrong thing, reading stale data, testing the wrong scenario
+- **Misaligned incentive** — the system works as designed but the design doesn't serve the goal
+- **Wrong abstraction** — the mental model doesn't match reality
 
 Don't anchor on the first plausible cause. The most obvious explanation is often wrong — that's why the bug wasn't caught earlier.
 
@@ -48,7 +53,7 @@ For each hypothesis, answer:
 3. What is the cheapest check that distinguishes this from the other hypotheses?
 4. Would the proposed fix remove the cause or just mask the symptom?
 
-Then run the cheapest distinguishing check. Actually run it — grep, read the config, check the log, trace the code path, run the test with specific input. Don't reason about what the check would show.
+Then run the cheapest distinguishing check. Actually run it — search the source, read the data, check the record, trace the path, test with specific input. Don't reason about what the check would show.
 
 ## Narrow and repeat
 

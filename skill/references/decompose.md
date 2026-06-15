@@ -45,7 +45,7 @@ Strip to the essential. The best decomposition makes the problem smaller, not bi
 - Describing parts without their relationships
 - Accepting the user's frame without questioning whether it fits
 - Building a model too complex to act on
-- Staying abstract when the answer requires reading specific code
+- Staying abstract when the answer requires reading specific sources
 - Treating every constraint as hard when some are preferences
 - Adding scope that wasn't in the original problem
 

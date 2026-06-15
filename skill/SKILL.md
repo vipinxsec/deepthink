@@ -12,7 +12,7 @@ Think better, not more. Every claim must be grounded in evidence you gathered, n
 Before reading any mode files, answer silently:
 
 - **Goal**: What outcome does the user actually need? (Not the stated task — the underlying need.)
-- **Type**: Classify as: `bug` | `design` | `refactor` | `research` | `decision` | `implement`
+- **Type**: Classify as: `bug` | `design` | `refactor` | `research` | `decision` | `implement` | `writing` | `strategy`
 - **Failure modes**: Top 3 ways this goes wrong without careful thought.
 - **Unknowns**: What do I not know that I need to know?
 - **Complexity**: Simple (1-2 moving parts, clear path) or complex (3+ interacting concerns, competing approaches)?
@@ -23,7 +23,7 @@ If a missing detail would change the approach, check it before proceeding — do
 
 ### Simple tasks
 
-If the task is simple: skip modes entirely. Investigate the relevant code, verify your understanding, and act. Do not force structured thinking on a straightforward task.
+If the task is simple: skip modes entirely. Investigate the relevant material, verify your understanding, and act. Do not force structured thinking on a straightforward task.
 
 ### Complex tasks
 
@@ -37,6 +37,8 @@ Select the prescribed mode sequence for the task type:
 | research | investigate → explore → evaluate |
 | decision | decompose → explore → evaluate → commit |
 | implement | investigate → decompose → commit |
+| writing | decompose → explore → evaluate → commit |
+| strategy | investigate → decompose → explore → evaluate → commit |
 
 ## 2. Execute modes
 
@@ -44,9 +46,9 @@ Create a todo ledger with the selected modes. Read one mode file at a time. Afte
 
 ```
 [ ] investigate
-[ ] investigate: grep for existing auth middleware implementations
-[ ] investigate: read current session handling in src/auth/session.ts
-[ ] investigate: check git log for recent auth changes
+[ ] investigate: search for existing implementations or prior art
+[ ] investigate: read the relevant files, docs, or sources
+[ ] investigate: check history for recent changes or context
 [ ] decompose
 [ ] commit
 ```
@@ -59,7 +61,7 @@ When moving to the next mode, carry forward insights, open questions, and uncert
 
 After completing each mode, record:
 
-- **Verified**: Facts you confirmed with tools (grep, read, run, git log)
+- **Verified**: Facts you confirmed with tools or sources
 - **Assumed**: Beliefs you hold but did not verify
 - **Surprised**: Things that differed from your initial expectation
 
@@ -95,7 +97,7 @@ Surface uncertainty near the claims it limits. Do not make the answer look more 
 
 ## Rules
 
-- **Verify, don't reason.** If you can check it, check it. Reading the code beats assuming. Running the test beats predicting. `grep` beats guessing.
+- **Verify, don't reason.** If you can check it, check it. Reading the source beats assuming. Running the test beats predicting. Looking it up beats guessing.
 - **Minimum effective depth.** Use only the modes this problem needs. Simple problems get no modes.
 - **Evidence over intuition.** Track the difference between "I checked" and "I believe."
 - **Disagree when evidence says to.** Deep thinking includes independent thinking.

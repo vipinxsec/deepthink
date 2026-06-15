@@ -4,9 +4,11 @@ A Claude Code skill that makes AI agents verify before they reason. Structured t
 
 ## About
 
-AI agents are confident but often wrong. They reason about what code *probably* does instead of reading it. They assume functions exist instead of grepping for them. They predict test results instead of running them.
+AI agents are confident but often wrong. They reason about what *probably* is instead of checking what actually is — whether that's code, data, a strategy, or a research question.
 
-deepthink enforces **verify first, reason second.** The agent must gather evidence with tools before forming an opinion. Assumptions are tracked separately from verified facts. The skill adapts to problem complexity — simple tasks get no overhead, complex tasks get a prescribed sequence of thinking modes selected automatically based on task type.
+deepthink enforces **verify first, reason second.** The agent must gather evidence before forming an opinion. Assumptions are tracked separately from verified facts. The skill adapts to problem complexity — simple tasks get no overhead, complex tasks get a prescribed sequence of thinking modes selected automatically based on task type.
+
+Works for code and beyond — debugging, architecture, research, writing, strategy, and any task where being right matters more than being fast.
 
 ## Install
 
@@ -48,7 +50,17 @@ Prefix your prompt with `/deepthink`:
 /deepthink Add rate limiting to our public API endpoints — we're seeing abuse on /api/search.
 ```
 
-The skill also activates automatically for complex reasoning, design decisions, debugging, and evaluation tasks.
+**Writing**
+```
+/deepthink Write a post-mortem for last week's outage that's honest about root cause without throwing the infra team under the bus.
+```
+
+**Strategy**
+```
+/deepthink Our free tier costs us $80k/month in compute. Should we add usage limits, move to a freemium model, or cut it entirely?
+```
+
+The skill also activates automatically for complex reasoning, design decisions, debugging, evaluation, and strategic tasks.
 
 ## Before / After
 
@@ -101,6 +113,8 @@ Every task gets classified and assigned the right thinking sequence automaticall
 | Research | investigate → explore → evaluate |
 | Decision | decompose → explore → evaluate → commit |
 | Implement | investigate → decompose → commit |
+| Writing | decompose → explore → evaluate → commit |
+| Strategy | investigate → decompose → explore → evaluate → commit |
 
 ### Thinking modes
 
@@ -117,7 +131,7 @@ Every task gets classified and assigned the right thinking sequence automaticall
 
 After each mode, the agent records:
 
-- **Verified** — facts confirmed with tools (grep, file reads, test runs)
+- **Verified** — facts confirmed with tools or sources
 - **Assumed** — beliefs held but not yet checked
 - **Surprised** — things that differed from initial expectation
 
