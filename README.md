@@ -50,6 +50,45 @@ Prefix your prompt with `/deepthink`:
 
 The skill also activates automatically for complex reasoning, design decisions, debugging, and evaluation tasks.
 
+## Before / After
+
+Prompt: *"Why does the `/api/users/:id` endpoint return 403 for admin users?"*
+
+<details>
+<summary><b>Without deepthink</b></summary>
+
+> The issue is likely in your role-checking middleware. The admin role probably isn't being recognized — check that your middleware compares roles case-insensitively and that the admin role is spelled correctly in your database. You may also want to verify that the JWT token includes the role claim.
+
+Sounds reasonable. Didn't check anything. Three guesses and a "you may want to."
+
+</details>
+
+<details>
+<summary><b>With deepthink</b></summary>
+
+**investigate** — Reads the auth middleware, greps for role checks, checks recent git history:
+- Found: `req.user.role === 'admin'` check in `src/middleware/auth.ts:34` — correct, case-sensitive match ✓
+- Found: JWT token includes `role` claim — verified in `src/utils/jwt.ts:12` ✓
+- Found: `git log` shows CORS middleware was moved last week in commit `a]3f8e2`
+
+**diagnose** — Forms three hypotheses:
+1. Role not in JWT → ruled out, verified token includes role
+2. Middleware ordering — CORS middleware resets headers on preflight → cheapest test: check middleware order in `server.ts`
+3. Role value mismatch in DB → check with `SELECT DISTINCT role FROM users`
+
+Runs cheapest test — reads `server.ts:18-25`:
+```
+app.use(authMiddleware)    // ← runs first
+app.use(corsMiddleware)    // ← strips Authorization header on preflight
+```
+Preflight request hits auth first with no token → 403.
+
+**commit** — "Move `corsMiddleware` before `authMiddleware` in `server.ts`. The CORS middleware must handle preflight `OPTIONS` requests before auth checks run. This broke in commit `a3f8e2` when middleware order was changed."
+
+Evidence-backed. Root cause identified. One-line fix.
+
+</details>
+
 ## How it works
 
 Every task gets classified and assigned the right thinking sequence automatically:
