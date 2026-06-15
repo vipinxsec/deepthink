@@ -4,11 +4,9 @@ A Claude Code skill that makes AI agents verify before they reason. Structured t
 
 ## About
 
-Most AI reasoning skills tell agents to "think harder." The result is longer responses, not better ones. The agent spends more tokens reasoning about what code *probably* does instead of just reading it.
+AI agents are confident but often wrong. They reason about what code *probably* does instead of reading it. They assume functions exist instead of grepping for them. They predict test results instead of running them.
 
-deepthink takes a different approach: **verify first, reason second.** Before the agent forms an opinion, it must gather evidence — grep the codebase, read the actual files, check git history, run the tests. Assumptions are tracked separately from verified facts, so the final answer distinguishes what was checked from what was guessed.
-
-The skill adapts to problem complexity. Simple tasks get no overhead. Complex tasks get a prescribed sequence of thinking modes — investigation, decomposition, exploration, evaluation, and commitment — selected automatically based on what kind of problem you're solving. No manual mode selection, no one-size-fits-all process.
+deepthink enforces **verify first, reason second.** The agent must gather evidence with tools before forming an opinion. Assumptions are tracked separately from verified facts. The skill adapts to problem complexity — simple tasks get no overhead, complex tasks get a prescribed sequence of thinking modes selected automatically based on task type.
 
 ## Install
 
@@ -52,17 +50,9 @@ Prefix your prompt with `/deepthink`:
 
 The skill also activates automatically for complex reasoning, design decisions, debugging, and evaluation tasks.
 
-## The problem
-
-AI agents are confident but often wrong. They reason about code instead of reading it. They assume functions exist instead of grepping for them. They predict test results instead of running them. Thinking harder doesn't help if the thinking isn't grounded in reality.
-
-deepthink fixes this by enforcing **active verification** — the agent must check facts with tools before building on them.
-
 ## How it works
 
-### 1. Classify and prescribe
-
-Every task gets classified, and the right thinking sequence is prescribed automatically:
+Every task gets classified and assigned the right thinking sequence automatically:
 
 | Task | Mode Sequence |
 |---|---|
@@ -73,9 +63,7 @@ Every task gets classified, and the right thinking sequence is prescribed automa
 | Decision | decompose → explore → evaluate → commit |
 | Implement | investigate → decompose → commit |
 
-Simple tasks skip modes entirely — no forced deep thinking on straightforward work.
-
-### 2. Five thinking modes
+### Thinking modes
 
 | Mode | What it does |
 |---|---|
@@ -85,7 +73,7 @@ Simple tasks skip modes entirely — no forced deep thinking on straightforward 
 | **evaluate** | Weighted criteria comparison. Find the decisive criterion. Stress-test the winner against its worst failure mode. |
 | **commit** | Make the decision. State evidence, tradeoffs, and risks. Give the user something to act on immediately. |
 
-### 3. Evidence tracking
+### Evidence tracking
 
 After each mode, the agent records:
 
@@ -94,21 +82,6 @@ After each mode, the agent records:
 - **Surprised** — things that differed from initial expectation
 
 The "surprised" list catches where the agent's mental model was wrong — before that wrong model corrupts the answer.
-
-### 4. Pre-delivery verification
-
-Before the final answer, the agent must confirm:
-- Every factual claim is backed by evidence gathered with tools
-- At least one initial assumption was proven wrong (if nothing surprised you, you didn't investigate hard enough)
-- Rejected alternatives have specific, articulable reasons for rejection
-- The answer addresses the failure modes identified during orientation
-
-## Design principles
-
-- **Verify, don't reason.** If you can check it, check it. `grep` beats guessing.
-- **Minimum effective depth.** Use only the modes this problem needs.
-- **Evidence over intuition.** Track what's checked vs what's assumed.
-- **Disagree when evidence says to.** Deep thinking includes independent thinking.
 
 ## License
 
