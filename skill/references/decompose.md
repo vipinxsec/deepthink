@@ -30,6 +30,16 @@ Use sparingly — only when the current frame hides the useful answer:
 
 A problem statement is not the problem. It is one representation. Try another if this one isn't productive.
 
+## Good vs bad output
+
+Bad decomposition:
+> "The system has a frontend, backend, and database. The frontend sends requests to the backend. The backend queries the database."
+
+Good decomposition:
+> "The stated goal is 'faster page loads' but the actual goal is 'reduce checkout abandonment.' The hard constraint is no infrastructure changes until Q3. The assumed constraint is 'we need SSR' — but the slow pages are all behind auth, so SSR gives no SEO benefit. The minimal working set: lazy-load the product image carousel (accounts for 60% of page weight) and defer analytics scripts."
+
+The difference: exposes the real goal, challenges assumptions, identifies what actually needs to change.
+
 ## Identify the minimal working set
 
 After mapping the problem: what is the smallest set of changes, checks, or decisions that addresses the actual goal?

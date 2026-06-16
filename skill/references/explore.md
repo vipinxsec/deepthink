@@ -29,7 +29,21 @@ Do not generate approaches you cannot briefly defend. Quantity without structura
 - **Recombination**: Fuse the best mechanism from two approaches into a third.
 - **Boundary search**: Check the extremes. What happens with zero items? One? A million? Adversarial input?
 
+- **Counterfactual**: What if a key assumption is false? What world makes a bad idea good?
+- **Agent shift**: View the problem as the adversary, the end user, the maintainer 2 years from now, or a complete novice.
+- **Abstraction**: Strip surface details, solve the underlying pattern, then map the solution back.
+
 If an operator fundamentally reframes the problem, step back to `decompose` before continuing — you may be solving a different problem now.
+
+## Good vs bad output
+
+Bad exploration:
+> "Approach 1: Use Redis for caching. Approach 2: Use Memcached for caching. Approach 3: Use an in-memory LRU cache."
+
+Good exploration:
+> "Approach 1: Cache at the edge (CDN) — eliminates server hits entirely, but cache invalidation becomes the hard problem. Approach 2: Eliminate the need to cache — denormalize the query so it's fast without caching. Simpler, but increases write complexity. Approach 3: Cache at the application layer with stale-while-revalidate — users always get fast responses, data is eventually consistent. Trades strict consistency."
+
+The difference: each approach makes a fundamentally different tradeoff, not just swaps one tool for another.
 
 ## Protect strange ideas
 

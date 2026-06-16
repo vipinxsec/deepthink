@@ -28,6 +28,16 @@ When the choice is high-stakes, irreversible, or genuinely close:
 5. **Reversal trigger**: What signal would mean you should reconsider?
 6. **First step**: The smallest concrete action to start
 
+## Challenge before committing
+
+Before finalizing, state the strongest argument against your conclusion — then explain why it doesn't hold (or acknowledge where it does). This is not a formality. If you can't articulate a real objection, you haven't thought hard enough. If the objection is strong enough to change the answer, change the answer.
+
+Bad challenge:
+> "One could argue the other approach is better, but our approach is more practical."
+
+Good challenge:
+> "The strongest objection: approach B handles 10x traffic spikes without config changes, while our choice requires manual scaling. This doesn't change the recommendation because the team confirmed traffic is stable and predictable (verified in analytics dashboard), and the manual scaling path takes <5 minutes when needed."
+
 ## Useful moves
 
 - Remove dominated options first (worse on every important criterion)
