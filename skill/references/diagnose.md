@@ -55,6 +55,16 @@ For each hypothesis, answer:
 
 Then run the cheapest distinguishing check. Actually run it — search the source, read the data, check the record, trace the path, test with specific input. Don't reason about what the check would show.
 
+## Good vs bad output
+
+Bad diagnosis:
+> "The upload might be failing due to a server configuration issue. Try checking the server settings."
+
+Good diagnosis:
+> "Hypothesis 1: nginx `client_max_body_size` is 1M (default) — checked `nginx.conf:12`, confirmed set to `1m`. Hypothesis 2: app-level validation rejects files >5MB — checked `upload.ts:28`, limit is `10mb`. Hypothesis 3: request timeout before upload completes — cheapest test: upload a 2MB file (under both limits). Result: 2MB upload succeeds. Root cause: nginx limit. Fix: set `client_max_body_size 15m` in nginx.conf."
+
+The difference: named mechanisms, ran distinguishing tests, eliminated alternatives.
+
 ## Narrow and repeat
 
 After each check:

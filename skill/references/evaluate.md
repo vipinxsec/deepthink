@@ -43,6 +43,16 @@ For each option against each weighted criterion:
 
 A high score on a low-weight criterion does not compensate for failure on a critical one. Don't let enthusiasm for cleverness override a critical weakness.
 
+## Good vs bad output
+
+Bad evaluation:
+> "Option A is simpler but Option B is more scalable. Both have tradeoffs. It depends on your needs."
+
+Good evaluation:
+> "Decisive criterion: maintainability (high weight — team of 3 junior devs). Option A scores high (200 lines, no new abstractions). Option B scores higher on scalability but requires understanding the observer pattern — a complexity tax paid on every future change. Option A wins unless you expect >10x traffic growth within 6 months."
+
+The difference: named the decisive criterion, scored with specifics, gave a clear winner with a reversal condition.
+
 ## 4. Find the decisive criterion
 
 Often one criterion actually swings the decision. Name it explicitly. If removing that criterion would change the winner, it's the decisive one and the user should know it.

@@ -54,6 +54,22 @@ For any system (code, process, argument, workflow): trace the actual path from i
 
 Contradictions are high-value signals — they often point to the real problem or the real question.
 
+## Good vs bad output
+
+Bad investigate output:
+> "The auth middleware probably checks roles before allowing access to admin routes."
+
+Good investigate output:
+> "Confirmed `req.user.role === 'admin'` at `src/middleware/auth.ts:34` — case-sensitive match, no normalization. `git log` shows this file was last modified 3 weeks ago in commit `e4f2a1b` to add the `/admin/billing` route."
+
+Bad (non-code):
+> "The company likely has a refund policy."
+
+Good (non-code):
+> "Refund policy found at support.example.com/refunds — 30-day window, requires original receipt, excludes digital goods. Last updated March 2025."
+
+The difference: citations and specifics, not hedged guesses.
+
 ## Record what you find
 
 After investigating:

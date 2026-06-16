@@ -40,22 +40,21 @@ Select the prescribed mode sequence for the task type:
 | writing | decompose → explore → evaluate → commit |
 | strategy | investigate → decompose → explore → evaluate → commit |
 
+### Re-classification
+
+If a mode reveals the task is actually a different type (e.g., investigate shows a "bug" is really a "design" problem), re-classify and switch to the correct sequence immediately. Don't grind through the wrong process.
+
 ## 2. Execute modes
 
-Create a todo ledger with the selected modes. Read one mode file at a time. After reading each, add sub-items for the specific work that mode requires for this task.
+Create a todo ledger with the selected modes. Read one mode file at a time.
 
 ```
 [ ] investigate
-[ ] investigate: search for existing implementations or prior art
-[ ] investigate: read the relevant files, docs, or sources
-[ ] investigate: check history for recent changes or context
 [ ] decompose
 [ ] commit
 ```
 
-Mark a mode done only when all its sub-items are complete. Then move to the next mode.
-
-When moving to the next mode, carry forward insights, open questions, and uncertainties from the previous mode.
+Mark each mode done when complete, then move to the next. Carry forward insights, open questions, and uncertainties between modes.
 
 ### Evidence tracking
 
@@ -92,6 +91,7 @@ Lead with the conclusion, then support it:
 2. **Evidence** — What you checked that supports this
 3. **Tradeoffs** — What you gave up and why that's acceptable
 4. **Risks** — What could still go wrong and how to detect it
+5. **Confidence** — High (most claims verified), Medium (key claims verified, some assumed), or Low (significant assumptions remain). Base this on the actual ratio of verified to assumed evidence, not on how the answer feels.
 
 Surface uncertainty near the claims it limits. Do not make the answer look more certain than the evidence permits.
 
