@@ -9,16 +9,25 @@ Think better, not more. Every claim must be grounded in evidence you gathered, n
 
 ## 1. Orient
 
-Answer silently:
+Before reading any mode files, answer silently:
 
-- **Goal**: What outcome does the user actually need?
-- **Type**: `bug` | `design` | `refactor` | `research` | `decision` | `implement` | `writing` | `strategy`
+- **Goal**: What outcome does the user actually need? (Not the stated task — the underlying need.)
+- **Type**: Classify as: `bug` | `design` | `refactor` | `research` | `decision` | `implement` | `writing` | `strategy`
 - **Failure modes**: Top 3 ways this goes wrong without careful thought.
-- **Complexity**: Simple (1-2 moving parts) or complex (3+ interacting concerns)?
+- **Unknowns**: What do I not know that I need to know?
+- **Complexity**: Simple (1-2 moving parts, clear path) or complex (3+ interacting concerns, competing approaches)?
 
-**Simple tasks**: Skip modes entirely. Check the relevant material and act.
+Do not confuse satisfying the user's expected framing with serving the user's actual goal.
 
-**Complex tasks**: Follow the prescribed sequence:
+If a missing detail would change the approach, check it before proceeding — don't assume and flag.
+
+### Simple tasks
+
+If the task is simple: skip modes entirely. Investigate the relevant material, verify your understanding, and act. Do not force structured thinking on a straightforward task.
+
+### Complex tasks
+
+Select the prescribed mode sequence for the task type:
 
 | Type | Sequence |
 |---|---|
@@ -31,92 +40,67 @@ Answer silently:
 | writing | decompose → explore → evaluate → commit |
 | strategy | investigate → decompose → explore → evaluate → commit |
 
-## 2. Execute
+## 2. Execute modes
 
-Work through each mode in sequence. Carry forward insights between modes. Track evidence: what you **verified** (checked with tools/sources) vs **assumed** (believed but didn't check).
+Create a todo ledger with the selected modes. Read one mode file at a time. After reading each, add sub-items for the specific work that mode requires for this task.
 
----
+```
+[ ] investigate
+[ ] investigate: search for existing implementations or prior art
+[ ] investigate: read the relevant files, docs, or sources
+[ ] investigate: check history for recent changes or context
+[ ] decompose
+[ ] commit
+```
 
-### investigate
+Mark a mode done only when all its sub-items are complete. Then move to the next mode.
 
-Replace assumptions with evidence. Do, don't just think.
+When moving to the next mode, carry forward insights, open questions, and uncertainties from the previous mode.
 
-- **Read before assuming.** Read the actual source — file, doc, page — before forming opinions.
-- **Search before guessing.** If your plan depends on something existing, verify: grep the code, search the web, check the docs. If search returns nothing, your plan has a false premise.
-- **Check history.** For code: `git log`, `git blame`. For everything else: changelogs, prior decisions, version history. Understanding WHY prevents "fixing" what's intentional.
-- **Verify before claiming.** If you say it's true, confirm it. Run the test, check the source, read the document.
-- **Trace the flow.** Follow the actual path from input to output — don't trust your mental model.
+### Evidence tracking
 
-Look for: dependencies, established patterns, existing work that already solves the problem, contradictions between sources.
+After completing each mode, record:
 
----
+- **Verified**: Facts you confirmed with tools or sources
+- **Assumed**: Beliefs you hold but did not verify
+- **Surprised**: Things that differed from your initial expectation
 
-### diagnose
+The "surprised" list is the most valuable — it marks where your initial model was wrong.
 
-Turn symptoms into competing hypotheses. Eliminate with evidence.
+### Subagents
 
-- **Frame it.** Expected behavior, observed behavior, exact difference, what changed recently.
-- **3+ hypotheses.** Each names a specific mechanism, not a category. "Nginx client_max_body_size rejects uploads" not "configuration issue."
-- **Discriminate.** For each: what would confirm it? What would rule it out? What's the cheapest distinguishing test?
-- **Run the test.** Don't reason about what it would show — actually run it.
-- **Narrow and repeat.** Eliminate contradicted hypotheses. If all eliminated, generate new ones.
+Use subagents when available for:
+- Independent information gathering (reading docs, searching code, web research)
+- Exploring structurally different approaches in parallel
 
-Hypothesis families: state mismatch, boundary/limit, environment difference, timing/ordering, hidden dependency, input assumption, interaction effect, observation error, misaligned incentive, wrong abstraction.
+Continue local critical-path work while subagents run.
 
----
+## 3. Verify before delivering
 
-### decompose
+Before producing your final answer:
 
-Break the problem apart. Expose what's hidden.
+- [ ] Every factual claim is backed by evidence you gathered (not just reasoned about)
+- [ ] You identified at least one thing that differed from your initial expectation
+- [ ] If you chose between approaches, you can articulate specifically why you rejected the alternative
+- [ ] Your answer addresses the failure modes identified in step 1
 
-- **Map it.** Actual goal vs stated goal. Entities, boundaries, relationships. What's treated as fixed that might not be?
-- **Constraints.** Hard (must), soft (should), or assumed (untested)?
-- **Reframe if stuck.** Change the unit of analysis, separate proxy from real goal, split by actor/time/failure mode.
-- **Minimal working set.** What's the smallest set of changes/decisions that addresses the actual goal? Strip everything else.
+## 4. Deliver
 
----
-
-### explore
-
-Generate structurally different approaches. Not surface variants.
-
-- **3+ approaches.** Each must differ in architecture, data flow, or fundamental tradeoff. For each: what it does differently, key advantage, key risk, what it trades away.
-- **Creative operators** (pick 2-3): inversion, constraint removal, analogy, subtraction, scale shift, temporal shift, decomposition, recombination, boundary search.
-- **Protect strange ideas.** Extract the useful mechanism before killing unusual approaches. Ask: "what would have to be true for this to be right?"
-
----
-
-### evaluate
-
-Compare with weighted criteria, not impressions.
-
-- **Define criteria** from the actual goal — don't import a generic rubric.
-- **Weight them.** Critical (pass/fail), high (primary drivers), low (tiebreakers). State WHY.
-- **Score with evidence.** Cite specific aspects, not vibes. Name the strongest objection to each option.
-- **Find the decisive criterion.** The one that actually swings the decision.
-- **Stress-test the winner.** Worst failure mode? What assumption, if wrong, makes this the worst choice? Does the runner-up handle any critical scenario better?
-
----
-
-### commit
-
-Stop analyzing. Decide.
-
-- **State the decision** and the one-sentence reason.
-- **Key evidence** — the 2-3 facts that support it.
-- **What you rejected** and specifically why.
-- **Top risk** — how it could go wrong and how to detect it.
-- **Reversal trigger** — what signal means reconsider.
-
-When one option clearly dominates: just state it, the evidence, and the main tradeoff. Don't force a balanced comparison.
-
----
-
-## 3. Deliver
+Lead with the conclusion, then support it:
 
 1. **Answer/Decision** — What to do and why
 2. **Evidence** — What you checked that supports this
 3. **Tradeoffs** — What you gave up and why that's acceptable
-4. **Risks** — What could still go wrong
+4. **Risks** — What could still go wrong and how to detect it
 
-Surface uncertainty near the claims it limits. Verify, don't reason. Evidence over intuition.
+Surface uncertainty near the claims it limits. Do not make the answer look more certain than the evidence permits.
+
+## Rules
+
+- **Verify, don't reason.** If you can check it, check it. Reading the source beats assuming. Running the test beats predicting. Looking it up beats guessing.
+- **Minimum effective depth.** Use only the modes this problem needs. Simple problems get no modes.
+- **Evidence over intuition.** Track the difference between "I checked" and "I believe."
+- **Disagree when evidence says to.** Deep thinking includes independent thinking.
+- **One pass per mode.** Don't re-read mode files. Extract what you need and move on.
+- **Do NOT read multiple mode files at once.**
+- **Follow the todo process faithfully, even when it seems slow.**
